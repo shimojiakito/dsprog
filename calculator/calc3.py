@@ -1,4 +1,5 @@
 import flet as ft
+import math
 
 
 def main(page: ft.Page):
@@ -31,7 +32,7 @@ def main(page: ft.Page):
 
     page.add(
         ft.Container(
-            width=350,
+            width=500,
             bgcolor=ft.colors.BLACK,
             border_radius=ft.border_radius.all(20),
             padding=20,
@@ -40,6 +41,7 @@ def main(page: ft.Page):
                     ft.Row(controls=[result], alignment="end"),
                     ft.Row(
                         controls=[
+                            ActionButton(text="1/x"),
                             ExtraActionButton(text="AC"),
                             ExtraActionButton(text="+/-"),
                             ExtraActionButton(text="%"),
@@ -48,6 +50,7 @@ def main(page: ft.Page):
                     ),
                     ft.Row(
                         controls=[
+                            ActionButton(text="x!"),
                             DigitButton(text="7"),
                             DigitButton(text="8"),
                             DigitButton(text="9"),
@@ -56,6 +59,7 @@ def main(page: ft.Page):
                     ),
                     ft.Row(
                         controls=[
+                            ActionButton(text="x²"),
                             DigitButton(text="4"),
                             DigitButton(text="5"),
                             DigitButton(text="6"),
@@ -64,6 +68,7 @@ def main(page: ft.Page):
                     ),
                     ft.Row(
                         controls=[
+                            ActionButton(text="x³"),
                             DigitButton(text="1"),
                             DigitButton(text="2"),
                             DigitButton(text="3"),
@@ -72,7 +77,8 @@ def main(page: ft.Page):
                     ),
                     ft.Row(
                         controls=[
-                            DigitButton(text="0", expand=2),
+                            ActionButton(text="10^x"),
+                            DigitButton(text="0" , expand=2),
                             DigitButton(text="."),
                             ActionButton(text="="),
                         ]
