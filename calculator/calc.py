@@ -1,4 +1,5 @@
 import flet as ft
+import math
 
 
 class CalcButton(ft.ElevatedButton):
@@ -38,7 +39,7 @@ class CalculatorApp(ft.Container):
         self.reset()
 
         self.result = ft.Text(value="0", color=ft.colors.WHITE, size=20)
-        self.width = 350
+        self.width = 500
         self.bgcolor = ft.colors.BLACK
         self.border_radius = ft.border_radius.all(20)
         self.padding = 20
@@ -47,6 +48,7 @@ class CalculatorApp(ft.Container):
                 ft.Row(controls=[self.result], alignment="end"),
                 ft.Row(
                     controls=[
+                        ActionButton(text="1/x", button_clicked=self.button_clicked),
                         ExtraActionButton(
                             text="AC", button_clicked=self.button_clicked
                         ),
@@ -59,6 +61,7 @@ class CalculatorApp(ft.Container):
                 ),
                 ft.Row(
                     controls=[
+                        ActionButton(text="x!", button_clicked=self.button_clicked),
                         DigitButton(text="7", button_clicked=self.button_clicked),
                         DigitButton(text="8", button_clicked=self.button_clicked),
                         DigitButton(text="9", button_clicked=self.button_clicked),
@@ -67,6 +70,7 @@ class CalculatorApp(ft.Container):
                 ),
                 ft.Row(
                     controls=[
+                        ActionButton(text="x²", button_clicked=self.button_clicked),
                         DigitButton(text="4", button_clicked=self.button_clicked),
                         DigitButton(text="5", button_clicked=self.button_clicked),
                         DigitButton(text="6", button_clicked=self.button_clicked),
@@ -75,6 +79,7 @@ class CalculatorApp(ft.Container):
                 ),
                 ft.Row(
                     controls=[
+                        ActionButton(text="x³", button_clicked=self.button_clicked),
                         DigitButton(text="1", button_clicked=self.button_clicked),
                         DigitButton(text="2", button_clicked=self.button_clicked),
                         DigitButton(text="3", button_clicked=self.button_clicked),
@@ -83,6 +88,7 @@ class CalculatorApp(ft.Container):
                 ),
                 ft.Row(
                     controls=[
+                        ActionButton(text="10^x", button_clicked=self.button_clicked),
                         DigitButton(
                             text="0", expand=2, button_clicked=self.button_clicked
                         ),
@@ -136,6 +142,22 @@ class CalculatorApp(ft.Container):
                 self.result.value = str(
                     self.format_number(abs(float(self.result.value)))
                 )
+        elif data in ("1/x"):
+            self.result.value = self.format_number(1 / float(self.result.value))
+        
+        elif data in ("x!"):
+            self.result.value = self.format_number(math.factorial(int(self.result.value)))
+        
+        elif data in ("x²"):
+            self.result.value = self.format_number(float(self.result.value) ** 2)
+
+        elif data in ("x³"):
+            self.result.value = self.format_number(float(self.result.value) ** 3)
+        
+        elif data in ("10^x"):
+            self.result.value = self.format_number(10 ** float(self.result.value))
+        
+       
 
         self.update()
 
@@ -161,6 +183,23 @@ class CalculatorApp(ft.Container):
                 return "Error"
             else:
                 return self.format_number(operand1 / operand2)
+        
+        elif operator == "1/x":
+            return self.format_number(1 / operand2)
+        
+        elif operator == "x!":
+            return self.format_number(math.factorial(int(operand1)))
+        
+        elif operator == "x²":
+            return self.format_number(operand2 ** 2)
+        
+        elif operator == "x³":
+            return self.format_number(operand2 ** 3)
+        
+        elif operator == "10^x":
+            return self.format_number(10 ** operand2)
+        
+        
 
     def reset(self):
         self.operator = "+"
